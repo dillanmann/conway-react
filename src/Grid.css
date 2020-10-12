@@ -1,0 +1,8 @@
+.tile-grid{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tile-row{
+    flex-direction: column;
+}
