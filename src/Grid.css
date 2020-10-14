@@ -6,3 +6,14 @@
 .tile-row{
     flex-direction: column;
 }
+.tile{
+    width: 25px;
+    height: 25px;
+    border: solid 1px black;
+}
+.tile-alive{
+    background: green;
+}
+.tile-dead{
+    background: red;
+}

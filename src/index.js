@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App tilesWidth={15}/>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
