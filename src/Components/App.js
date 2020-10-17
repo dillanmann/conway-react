@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import Grid from './Grid';
 import GridHandler from '../Utils/GridHandler';
+const autoBind = require('auto-bind');
 
 class App extends React.Component {
   constructor(props){
@@ -12,16 +13,19 @@ class App extends React.Component {
     };
     this.widths = [10, 20, 30];
     this.heights = [10, 20, 30];
-    this.gridHandler = new GridHandler(this.state.width, this.state.height, () => console.log('fuck'));
+    this.gridHandler = new GridHandler(this.state.width, this.state.height, () => this.setState(this.state));
+    autoBind(this);
   }
-  heightChange = (event) => {
-    this.setState({height: parseInt(event.target.value)});
+  heightChange(event){
+    const value = parseInt(event.target.value)
+    this.setState({height: value});
+    this.gridHandler.resetGrid(this.state.width, value, false);
   }
-  widthChange = (event) => {
-    this.setState({width: parseInt(event.target.value)});
-    this.gridHandler.resetGrid(event.target.value, this.state.height);
+  widthChange(event){
+    const value = parseInt(event.target.value)
+    this.setState({width: value});
+    this.gridHandler.resetGrid(value, this.state.height, false);
   }
-
   render() {
     return (
       <div className='app'>
@@ -35,7 +39,7 @@ class App extends React.Component {
             {this.widths.map((v) => (<option value={v} key={v}>{v}</option>))}
           </select>
           <input type='button' value='Simulate!'/>
-          <input type='button' value='Reset' />
+          <input type='button' value='Reset' onClick={() => this.gridHandler.resetGrid(this.state.width, this.state.height)} />
         </div>
         <Grid grid={this.gridHandler.grid} tileClicked={this.gridHandler.flipTileState} />
       </div>
