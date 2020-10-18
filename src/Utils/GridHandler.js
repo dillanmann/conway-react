@@ -5,7 +5,6 @@ class GridHandler {
         this.grid = this.initialiseGrid(width, height);
         this.gridUpdated = onGridUpdated;
         this.enableTileUpdates = true;
-        this.simulationRunning = false;
         autoBind(this);
     }
     // Default definition to allow over-ride and context binding
@@ -33,16 +32,13 @@ class GridHandler {
         this.grid[x][y] = !this.grid[x][y];
         this.gridUpdated();
     }
-    startSimulation(onSimulationStopped){
-        this.enableTileUpdates = false;
-        this.simulationRunning = true;
-        try {
-            
-        } finally {
-            this.simulationRunning = false;
-            this.enableTileUpdates = true;
-            onSimulationStopped();
-        }
+    setEnableTileUpdates(state){
+        this.enableTileUpdates = state;
+        this.gridUpdated();
+    }
+    replaceGridContent(grid){
+        this.grid = grid;
+        this.gridUpdated();
     }
 }
 
