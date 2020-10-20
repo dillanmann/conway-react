@@ -4,7 +4,7 @@ class GridHandler {
     constructor(width, height, onGridUpdated) {
         this.grid = this.initialiseGrid(width, height);
         this.gridUpdated = onGridUpdated;
-        this.enableTileUpdates = true;
+        this.enableTileChanges = true;
         autoBind(this);
     }
     // Default definition to allow over-ride and context binding
@@ -22,18 +22,18 @@ class GridHandler {
             this.gridUpdated();
         }
 
-        this.enableTileUpdates = true;
+        this.enableTileChanges = true;
     }
     flipTileState(x, y) {
-        if (!this.enableTileUpdates){
+        if (!this.enableTileChanges){
             return;
         }
 
         this.grid[x][y] = !this.grid[x][y];
         this.gridUpdated();
     }
-    setEnableTileUpdates(state){
-        this.enableTileUpdates = state;
+    setEnableTileChanges(state){
+        this.enableTileChanges = state;
         this.gridUpdated();
     }
     replaceGridContent(grid){

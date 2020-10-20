@@ -25,7 +25,7 @@ describe('CalculateNextStateTests', () => {
         expect(simulator.calculateNextState(currentState, neighbours)).toBe(true);
     });
 
-    it('IsAlive_Has3Neighbours_Dies', () => {
+    it('IsAlive_Has4Neighbours_Dies', () => {
         const currentState = true;
         const neighbours = 4;
         expect(simulator.calculateNextState(currentState, neighbours)).toBe(false);

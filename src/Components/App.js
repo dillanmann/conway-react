@@ -43,7 +43,7 @@ class App extends React.Component {
       }
     });
   }
-  changeSimulationState(){
+  toggleSimulationState(){
     if (this.state.simulationRunning){
       this.stopSimulation();
     } else {
@@ -51,7 +51,7 @@ class App extends React.Component {
     }
   }
   startSimulation(intervalMillis){
-    this.gridHandler.setEnableTileUpdates(false);
+    this.gridHandler.setEnableTileChanges(false);
     this.setState({simulationRunning: true});
     try {
       this.simulationIntervalId = setInterval(() => {
@@ -64,7 +64,7 @@ class App extends React.Component {
     }
   }
   stopSimulation(){
-    this.gridHandler.setEnableTileUpdates(true);
+    this.gridHandler.setEnableTileChanges(true);
     this.setState({simulationRunning: false});
     clearInterval(this.simulationIntervalId);
   }  
@@ -86,7 +86,7 @@ class App extends React.Component {
           <input
             type='button'
             value={this.state.simulationRunning ? StopSimulationText : StartSimulationText}
-            onClick={this.changeSimulationState}/>
+            onClick={this.toggleSimulationState}/>
           <input
             type='button'
             value='Reset'
