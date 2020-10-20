@@ -2,3 +2,7 @@
     display: flex;
     justify-content: center;
 }
+
+.input-container input, .input-container select {
+    margin: 0px 5px;
+}

@@ -9,7 +9,7 @@ function Grid(props) {
                     (
                         <div className='tile-row' key={`row-${i}`}>
                             {row.map((col, j) => (
-                                <div className='tile-column' key={`col-${i},${j}`}>
+                                <div className='tile-column' key={j}>
                                     <div
                                         className={`tile tile-${props.grid[i][j] ? 'alive' : 'dead'}`}
                                         onClick={() => props.tileClicked(i, j)}>
