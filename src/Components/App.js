@@ -7,7 +7,6 @@ const autoBind = require('auto-bind');
 
 const StartSimulationText = 'Simulate';
 const StopSimulationText = 'Stop';
-const TickIntervalMillis = 500;
 
 class App extends React.Component {
   constructor(props){
@@ -15,7 +14,8 @@ class App extends React.Component {
     this.state = {
       width: 20,
       height: 20,
-      simulationRunning: false
+      simulationRunning: false,
+      tickIntervalMillis: 500
     };
     this.widths = [10, 20, 30];
     this.heights = [10, 20, 30];
@@ -25,33 +25,39 @@ class App extends React.Component {
     autoBind(this);
   }
   heightChange(event){
-    const value = parseInt(event.target.value)
+    const value = parseInt(event.target.value);
     this.setState({height: value});
     this.gridHandler.resetGrid(this.state.width, value, false);
   }
   widthChange(event){
-    const value = parseInt(event.target.value)
+    const value = parseInt(event.target.value);
     this.setState({width: value});
     this.gridHandler.resetGrid(value, this.state.height, false);
   }
-  onSimulationStopped(){
-    this.setState({simulationRunning: false});
+  tickIntervalChange(event){
+    const value = event.target.value;
+    this.setState({tickIntervalMillis: value}, () => {
+      if (this.state.simulationRunning){
+        this.stopSimulation();
+        this.startSimulation(value);
+      }
+    });
   }
   changeSimulationState(){
     if (this.state.simulationRunning){
       this.stopSimulation();
     } else {
-      this.startSimulation();
+      this.startSimulation(this.state.tickIntervalMillis);
     }
   }
-  startSimulation(){
+  startSimulation(intervalMillis){
     this.gridHandler.setEnableTileUpdates(false);
     this.setState({simulationRunning: true});
     try {
       this.simulationIntervalId = setInterval(() => {
         const newFrame = this.simulator.simulateTick(this.gridHandler.grid);
         this.gridHandler.replaceGridContent(newFrame);
-      }, TickIntervalMillis);
+      }, intervalMillis);
     }
     catch {
       console.log('something went wrong with the simulation');
@@ -61,11 +67,14 @@ class App extends React.Component {
     this.gridHandler.setEnableTileUpdates(true);
     this.setState({simulationRunning: false});
     clearInterval(this.simulationIntervalId);
-  }
+  }  
   render() {
     return (
       <div className='app'>
         <div className='input-container'>
+          <label htmlFor='tickInterval'>Tick Interval (ms)</label>          
+          <input name='tickInterval' id='tickInterval' type='number' value={this.state.tickIntervalMillis}
+              step='100' max='5000' min='100' size='4' onChange={this.tickIntervalChange} />
           <label htmlFor='width'>Width</label>
           <select name='width' id='width' value={this.state.width} onChange={this.widthChange} disabled={this.state.simulationRunning}>
             {this.widths.map((v) => (<option value={v} key={v}>{v}</option>))}
