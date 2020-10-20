@@ -29,7 +29,7 @@ class GameOfLifeSimulator {
             // Skip 0 offset if x offset is already 0 to avoid self
             const yOffsets = i === 0 ? [-1, 1] : indexOffsets;
             yOffsets.forEach(j => {
-                if (i == -1 && col == 0){  // prevent out of range indexing
+                if (i === -1 && col === 0){  // prevent out of range indexing
                     return;
                 }
                 else if(j === -1 && row === 0){
