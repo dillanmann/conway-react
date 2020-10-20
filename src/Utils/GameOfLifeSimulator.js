@@ -27,18 +27,18 @@ class GameOfLifeSimulator {
 
         indexOffsets.forEach(i => {
             // Skip 0 offset if x offset is already 0 to avoid self
-            const yOffsets = i == 0 ? [-1, 1] : indexOffsets;
+            const yOffsets = i === 0 ? [-1, 1] : indexOffsets;
             yOffsets.forEach(j => {
                 if (i == -1 && col == 0){  // prevent out of range indexing
                     return;
                 }
-                else if(j == -1 && row == 0){
+                else if(j === -1 && row === 0){
                     return;
                 }
-                else if (i == 1 && col == gridWidth-1){
+                else if (i === 1 && col === gridWidth-1){
                     return;
                 }
-                else if (j == 1 && row == gridHeight-1){
+                else if (j === 1 && row === gridHeight-1){
                     return;
                 }
 
@@ -55,10 +55,10 @@ class GameOfLifeSimulator {
     }
     calculateNextState(currentState, neighbours){
         if (currentState){
-            return neighbours == 2 || neighbours == 3;
+            return neighbours === 2 || neighbours === 3;
         }
 
-        return neighbours == 3;
+        return neighbours === 3;
     }
 }
 
