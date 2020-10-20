@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dillanmann/conway-react.svg?branch=main)](https://travis-ci.org/dillanmann/conway-react)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
